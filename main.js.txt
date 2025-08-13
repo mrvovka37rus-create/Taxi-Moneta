@@ -1,0 +1,48 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Инициализация меню
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    const navLinks = document.querySelectorAll('.main-nav a');
+    
+    // Функция открытия/закрытия меню
+    function toggleMenu() {
+        mainNav.classList.toggle('active');
+    }
+    
+    // Обработка клика по кнопке меню
+    if (menuToggle) {
+        menuToggle.addEventListener('click', toggleMenu);
+    }
+    
+    // Закрытие меню при клике на ссылку
+    if (navLinks) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+            });
+        });
+    }
+    
+    // Форма заявки
+    const form = document.getElementById('driver-application');
+    
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            
+            // Валидация формы
+            const isValid = validateForm();
+            
+            if (isValid) {
+                // Отправка данных
+                sendData();
+                alert('Заявка отправлена!');
+                form.reset();
+            } else {
+                alert('Заполните все поля формы');
+            }
+        });
+    }
+    
+    function validateForm() {
+        const inputs = form.querySelectorAll('input[required]');
